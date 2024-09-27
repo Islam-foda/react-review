@@ -11,18 +11,23 @@ export default function Favorite() {
   const [count, setCount] = React.useState(0);
   const { id, name, job, image, text } = data[count];
 
-  //toggle function
-  function toggleRight(ev) {
-    if (count < data.length - 1) setCount(count + 1);
-    ev.target.className = "dimit";
-  }
 
-  function toggleLeft(ev) {
+  
+  //toggle function
+  function toggleRight() {
+    if (count < data.length - 1) setCount(count + 1);
+    
+  }
+function toggleRndom() {
+  setCount(Math.floor(Math.random() * data.length));
+}
+  function toggleLeft() {
     if (count > 0) setCount(count - 1);
-    ev.target.className = "dimit";
+    
   }
   return (
-    <article key={id} className="review">
+    <article key={id}  className="review">
+     
       <div className="img-contain">
         <img src={image} alt={name}></img>
         <span className="img-quote">
@@ -44,7 +49,7 @@ export default function Favorite() {
           <FaChevronRight />
         </button>
       </div>
-      <button className="surbrise">Surprise me</button>
+      <button  onClick={toggleRndom} className="surprise">Surprise me</button>
     </article>
   );
 }
