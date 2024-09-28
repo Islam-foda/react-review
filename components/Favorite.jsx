@@ -11,23 +11,36 @@ export default function Favorite() {
   const [count, setCount] = React.useState(0);
   const { id, name, job, image, text } = data[count];
 
+  const checkNumber = (number) => {
+    if (number > data.length - 1) {
+      return 0;
+    }
+    if (number < 0) {
+      return data.length - 1;
+    }
+    return number;
+  };
 
-  
+  //create random function to randomize the index.
+  function toggleRndom() {
+    setCount((preValue) => {
+      let randomNumber = Math.floor(Math.random() * data.length);
+      if (randomNumber === preValue) {
+        randomNumber = preValue + 1;
+      }
+      return checkNumber(randomNumber);
+    });
+  }
+
   //toggle function
   function toggleRight() {
-    if (count < data.length - 1) setCount(count + 1);
-    
+    setCount(checkNumber(count + 1));
   }
-function toggleRndom() {
-  setCount(Math.floor(Math.random() * data.length));
-}
   function toggleLeft() {
-    if (count > 0) setCount(count - 1);
-    
+    setCount(checkNumber(count - 1));
   }
   return (
-    <article key={id}  className="review">
-     
+    <article key={id} className="review">
       <div className="img-contain">
         <img src={image} alt={name}></img>
         <span className="img-quote">
@@ -49,7 +62,9 @@ function toggleRndom() {
           <FaChevronRight />
         </button>
       </div>
-      <button  onClick={toggleRndom} className="surprise">Surprise me</button>
+      <button onClick={toggleRndom} className="surprise">
+        Surprise me
+      </button>
     </article>
   );
 }
